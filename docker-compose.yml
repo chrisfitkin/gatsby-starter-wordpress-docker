@@ -1,0 +1,67 @@
+version: '3.3'
+
+services:
+  db:
+    container_name: kite_wp_db
+    image: mysql:5.7
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: somewordpress
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+
+  wordpress:
+    depends_on:
+      - db
+    volumes:
+      - ./wordpress/wp-content/themes:/var/www/html/wp-content/themes/
+      - ./wordpress/wp-content/plugins:/var/www/html/wp-content/plugins/
+      - ./wordpress/wp-content/uploads:/var/www/html/wp-content/uploads/
+      # - ./src/wp-content:/var/www/html/wp-content/
+      # - ./src/wp-config.local.php:/var/www/html/wp-config.php
+    image: wordpress:5.1
+    ports:
+      - "8001:80"
+    restart: always
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: wordpress
+      # WORDPRESS_TABLE_PREFIX: wp_klientboost_
+      WORDPRESS_CONFIG_EXTRA: |
+        define('WP_HOME','http://localhost:8001');
+        define('WP_SITEURL','http://localhost:8001');
+
+  phpmyadmin:
+    depends_on:
+      - db
+    image: phpmyadmin/phpmyadmin
+    container_name: kite_phpmyadmin
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOST=db
+      - PMA_USER=wordpress
+      - PMA_PASSWORD=wordpress
+    restart: always
+    ports:
+      - 8002:80
+    volumes:
+      - /sessions
+
+  gatsby:
+    depends_on:
+      - wordpress
+    build: .
+    volumes:
+      - ./src/gatsby:/usr/app/
+      - /usr/app/node_modules
+    ports:
+      - 8000:8000
+    restart: always
+
+volumes:
+    db_data: {}
