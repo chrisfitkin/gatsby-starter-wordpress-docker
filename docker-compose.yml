@@ -13,6 +13,14 @@ services:
       MYSQL_USER: wordpress
       MYSQL_PASSWORD: wordpress
 
+  db_seed:
+    image: mysql:5.7    
+    depends_on:
+      - db
+    volumes:
+      - ./data:/data
+    command: ["/data/seed.sh", "/data/seed.sql"]
+
   wordpress:
     depends_on:
       - db
