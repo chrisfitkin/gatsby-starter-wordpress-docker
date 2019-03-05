@@ -1,10 +1,8 @@
-# Gatsby v2 WordPress Starter
+# Gatsby v2 Starter with local Wordpress via Docker
 
-This starter is forked from the
-[gatsby-starter-netlify-cms](https://github.com/netlify-templates/gatsby-starter-netlify-cms)
-and modified to use WordPress instead of netlify-cms.
-
-Demo: https://gatsby-starter-wordpress.netlify.com/
+This starter is forked from
+[gatsby-starter-wordpress](https://github.com/GatsbyCentral/gatsby-starter-wordpress)
+and modified to use a local WordPress installation running in Docker.
 
 > **WARNING**: Using `yarn upgrade` or `npm update` will break the site. See [GatsbyCentral/gatsby-starter-wordpress#36](https://github.com/GatsbyCentral/gatsby-starter-wordpress/issues/36) and [gatsbyjs/gatsby#10262](https://github.com/gatsbyjs/gatsby/issues/10262) for more info. Hopefully we'll have a resolution soon. - 19 Dec 2018
 
@@ -31,11 +29,13 @@ Demo: https://gatsby-starter-wordpress.netlify.com/
 
 This plugin uses [gatsby-plugin-purgecss](https://www.gatsbyjs.org/packages/gatsby-plugin-purgecss/) and [bulma](https://bulma.io/). The bulma build would otherwise be ~170K which adds 170K to each of your built HTML pages. However, with purgecss this is reduced 90%.
 
-## Contributors
+## Original Sources
 
-This starter was forked from the netlify starter by the
-[GatsbyCentral](https://www.gatsbycentral.com/) crew. Additional contributions
-were gratefully received from the following folks:
+This project was based on the following resources.
+
+[GatsbyCentral](https://www.gatsbycentral.com/) 
+[gatsby-starter-wordpress](https://github.com/GatsbyCentral/gatsby-starter-wordpress)
+[gatsby-starter-netlify-cms](https://github.com/netlify-templates/gatsby-starter-netlify-cms)
 
 * https://github.com/tomByrer
 * https://github.com/dajocarter

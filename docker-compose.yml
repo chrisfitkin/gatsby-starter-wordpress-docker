@@ -2,7 +2,7 @@ version: '3.3'
 
 services:
   db:
-    container_name: kite_wp_db
+    container_name: gatsby_wp_db
     image: mysql:5.7
     volumes:
       - db_data:/var/lib/mysql
@@ -31,7 +31,6 @@ services:
       WORDPRESS_DB_USER: wordpress
       WORDPRESS_DB_PASSWORD: wordpress
       WORDPRESS_DB_NAME: wordpress
-      # WORDPRESS_TABLE_PREFIX: wp_klientboost_
       WORDPRESS_CONFIG_EXTRA: |
         define('WP_HOME','http://localhost:8001');
         define('WP_SITEURL','http://localhost:8001');
@@ -40,7 +39,7 @@ services:
     depends_on:
       - db
     image: phpmyadmin/phpmyadmin
-    container_name: kite_phpmyadmin
+    container_name: gatsby_phpmyadmin
     environment:
       - PMA_ARBITRARY=1
       - PMA_HOST=db

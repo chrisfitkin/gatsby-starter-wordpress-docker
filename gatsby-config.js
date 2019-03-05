@@ -1,7 +1,7 @@
 const config = {
   starter: {
     siteMetadata: {
-      title: 'MeetKite Gatsby Website',
+      title: 'Gatsby WP Local Website',
     },
     plugins: [
       'gatsby-plugin-react-helmet',
@@ -29,7 +29,7 @@ const config = {
     ],
   }, dev: {
     siteMetadata: {
-      title: 'MeetKite Gatsby Website',
+      title: 'Gatsby WP Local Website',
     },
     plugins: [
       'gatsby-plugin-react-helmet',

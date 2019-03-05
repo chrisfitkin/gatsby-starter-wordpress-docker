@@ -1,6 +1,10 @@
-# MeetKite website
+# Docker Readme
 
-## Docker Setup
+## Prerequisites
+
+Docker: https://docs.docker.com/install/
+
+## Running locally
 
 ```sh
 docker-compose build
