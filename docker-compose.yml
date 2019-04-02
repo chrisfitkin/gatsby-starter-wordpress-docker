@@ -1,4 +1,4 @@
-version: '3.3'
+version: '3.4'
 
 services:
   db:
@@ -39,9 +39,21 @@ services:
       WORDPRESS_DB_USER: wordpress
       WORDPRESS_DB_PASSWORD: wordpress
       WORDPRESS_DB_NAME: wordpress
-      WORDPRESS_CONFIG_EXTRA: |
-        define('WP_HOME','http://localhost:8001');
-        define('WP_SITEURL','http://localhost:8001');
+      WORDPRESS_CONFIG_EXTRA: >
+        $currenthost = 'http://'.\$_SERVER['HTTP_HOST'];
+        $currentpath = preg_replace('@/+$@','',dirname(\$_SERVER['SCRIPT_NAME']));
+        $currentpath = preg_replace('/\/wp.+/','',$currentpath);
+        define('WP_HOME',$currenthost.$currentpath);
+        define('WP_SITEURL',$currenthost.$currentpath);
+        define('WP_CONTENT_URL', $currenthost.$currentpath.'/wp-content');
+        define('WP_PLUGIN_URL', $currenthost.$currentpath.'/wp-content/plugins');
+        define('DOMAIN_CURRENT_SITE', $currenthost.$currentpath );
+        @define('ADMIN_COOKIE_PATH', './');
+        # define('WP_HOME', '/');
+        # define('WP_SITEURL', '/');
+        # remove_filter('template_redirect','redirect_canonical');
+        # define('WP_HOME','http://localhost:8001');
+        # define('WP_SITEURL','http://localhost:8001');
 
   phpmyadmin:
     depends_on:
@@ -59,17 +71,22 @@ services:
     volumes:
       - /sessions
 
-  # gatsby:
-  #   depends_on:
-  #     - wordpress
-  #   build: .
-  #   volumes:
-  #     - ./src:/usr/src/app/src/
-  #     - ./gatsby-config.js:/usr/src/app/gatsby-config.js
-  #     - /usr/src/app/node_modules
-  #   ports:
-  #     - 8000:8000
-  #   restart: always
+  gatsby:
+    depends_on:
+      - wordpress
+      - db
+    build: .
+    # network_mode: host
+    volumes:
+      - ./src:/usr/src/app/src/
+      - ./gatsby-config.js:/usr/src/app/gatsby-config.js
+      - ./gatsby-node.js:/usr/src/app/gatsby-node.js
+      # - /usr/src/app/node_modules
+    ports:
+      - 8000:8000
+    expose:
+      - "8000"
+    restart: always
 
 volumes:
     db_data: {}

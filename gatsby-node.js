@@ -9,6 +9,10 @@ const getOnlyPublished = edges =>
 exports.createPages = ({ actions, graphql }) => {
   const { createPage } = actions
 
+  // console.log('⛱⛱⛱⛱ gatsby-node.js.createPage', createPage);
+  // console.log('⛱⛱⛱⛱ gatsby-node.js.actions', actions);
+  // console.log('⛱⛱⛱⛱ gatsby-node.js.graphql', graphql);
+
   return graphql(`
     {
       allWordpressPage {
@@ -23,6 +27,7 @@ exports.createPages = ({ actions, graphql }) => {
     }
   `)
     .then(result => {
+      // console.log('⛱⛱⛱⛱ gatsby-node.js:26.result', result);
       if (result.errors) {
         result.errors.forEach(e => console.error(e.toString()))
         return Promise.reject(result.errors)
@@ -51,8 +56,7 @@ exports.createPages = ({ actions, graphql }) => {
         })
       })
     })
-    .then(() => {
-      return graphql(`
+    .then(() => graphql(`
         {
           allWordpressPost {
             edges {
@@ -64,8 +68,7 @@ exports.createPages = ({ actions, graphql }) => {
             }
           }
         }
-      `)
-    })
+      `))
     .then(result => {
       if (result.errors) {
         result.errors.forEach(e => console.error(e.toString()))
@@ -103,8 +106,7 @@ exports.createPages = ({ actions, graphql }) => {
         component: blogTemplate,
       })
     })
-    .then(() => {
-      return graphql(`
+    .then(() => graphql(`
         {
           allWordpressCategory(filter: { count: { gt: 0 } }) {
             edges {
@@ -116,8 +118,7 @@ exports.createPages = ({ actions, graphql }) => {
             }
           }
         }
-      `)
-    })
+      `))
     .then(result => {
       if (result.errors) {
         result.errors.forEach(e => console.error(e.toString()))
@@ -138,8 +139,7 @@ exports.createPages = ({ actions, graphql }) => {
         })
       })
     })
-    .then(() => {
-      return graphql(`
+    .then(() => graphql(`
         {
           allWordpressTag(filter: { count: { gt: 0 } }) {
             edges {
@@ -151,8 +151,7 @@ exports.createPages = ({ actions, graphql }) => {
             }
           }
         }
-      `)
-    })
+      `))
 
     .then(result => {
       if (result.errors) {
@@ -174,8 +173,7 @@ exports.createPages = ({ actions, graphql }) => {
         })
       })
     })
-    .then(() => {
-      return graphql(`
+    .then(() => graphql(`
         {
           allWordpressWpUsers {
             edges {
@@ -186,8 +184,7 @@ exports.createPages = ({ actions, graphql }) => {
             }
           }
         }
-      `)
-    })
+      `))
     .then(result => {
       if (result.errors) {
         result.errors.forEach(e => console.error(e.toString()))

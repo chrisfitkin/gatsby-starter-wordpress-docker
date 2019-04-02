@@ -1,7 +1,7 @@
 const config = {
   starter: {
     siteMetadata: {
-      title: 'Gatsby WP Local Website',
+      title: 'Gatsby WP Starter Website (Dev)',
     },
     plugins: [
       'gatsby-plugin-react-helmet',
@@ -57,6 +57,9 @@ const config = {
     ],
   },
   docker: {
+    siteMetadata: {
+      title: 'Gatsby WP Starter Website (Docker)',
+    },
     plugins: [
       'gatsby-plugin-react-helmet',
       'gatsby-plugin-sass',
@@ -65,6 +68,7 @@ const config = {
         options: {
           // The base url to your WP site.
           baseUrl: 'wordpress',
+          // baseUrl: 'localhost:8001',
           // WP.com sites set to true, WP.org set to false
           hostingWPCOM: false,
           // The protocol. This can be http or https.
@@ -74,10 +78,12 @@ const config = {
           auth: {},
           // Set to true to debug endpoints on 'gatsby build'
           verboseOutput: true,
-          searchAndReplaceContentUrls: { // rewrite for docker container network
-            sourceUrl: "http://localhost:8001",
-            replacementUrl: "http://wordpress",
-          },
+          // searchAndReplaceContentUrls: { // rewrite for docker container network
+          // sourceUrl: "http://wordpress",
+          // replacementUrl: "http://localhost:8000",
+          // sourceUrl: "http://localhost:8001",
+          // replacementUrl: "http://wordpress",
+          // },
         },
       },
       'gatsby-plugin-sharp',
